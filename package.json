@@ -1,0 +1,44 @@
+{
+  "name": "provida",
+  "private": true,
+  "version": "0.0.0-PLACEHOLDER",
+  "author": "Yume Sai-ko <yumii.saiko@gmail.com>",
+  "description": "provider interfaces",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "<git repo>"
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "type": "module",
+  "scripts": {
+    "format": "prettier --write .",
+    "build": "node scripts/build.js",
+    "test": "vitest",
+    "lint": "eslint --cache --ext .js,.ts,.tsx . --ignore-path .gitignore",
+    "test-coverage": "vitest --coverage"
+  },
+  "devDependencies": {
+    "@codspeed/vitest-plugin": "^3.1.0",
+    "@types/node": "^20.11.28",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "@vitest/coverage-istanbul": "^1.4.0",
+    "boxen": "^7.1.1",
+    "eslint": "^8.57.0",
+    "eslint-define-config": "^2.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "execa": "^8.0.1",
+    "graceful-fs": "^4.2.11",
+    "minimist": "^1.2.8",
+    "picocolors": "^1.0.0",
+    "prettier": "^3.0.0",
+    "vitest": "^1.4.0"
+  },
+  "dependencies": {
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
+  }
+}
