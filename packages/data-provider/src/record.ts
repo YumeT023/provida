@@ -4,4 +4,3 @@ export interface PrRecord {
 }
 
 export type Id = PrRecord["id"];
-
