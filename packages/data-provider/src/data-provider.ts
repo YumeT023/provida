@@ -99,8 +99,9 @@ export const queries = [
  * excluding the `getName` method, which is provided by the factory function itself.
  *
  * Usage:
- * const exampleDataProvider = makeDataProvider('exampleDataProvider', {
- *   getOne: (id, params, meta) => { custom implementation },
+ *
+ * const exampleDataProvider = createDataProvider('exampleDataProvider', {
+ *   getOne: (id, params, meta) => { /* impl `*\/` },
  *   // other methods...
  * });
  *
