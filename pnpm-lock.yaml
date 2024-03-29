@@ -4,60 +4,83 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  tslib:
-    specifier: ^2.6.2
-    version: 2.6.2
-  typescript:
-    specifier: ^5.3.3
-    version: 5.4.3
+importers:
 
-devDependencies:
-  '@codspeed/vitest-plugin':
-    specifier: ^3.1.0
-    version: 3.1.0(vite@5.2.4)(vitest@1.4.0)
-  '@types/node':
-    specifier: ^20.11.28
-    version: 20.11.30
-  '@typescript-eslint/eslint-plugin':
-    specifier: ^7.3.1
-    version: 7.3.1(@typescript-eslint/parser@7.3.1)(eslint@8.57.0)(typescript@5.4.3)
-  '@typescript-eslint/parser':
-    specifier: ^7.3.1
-    version: 7.3.1(eslint@8.57.0)(typescript@5.4.3)
-  '@vitest/coverage-istanbul':
-    specifier: ^1.4.0
-    version: 1.4.0(vitest@1.4.0)
-  boxen:
-    specifier: ^7.1.1
-    version: 7.1.1
-  eslint:
-    specifier: ^8.57.0
-    version: 8.57.0
-  eslint-define-config:
-    specifier: ^2.1.0
-    version: 2.1.0
-  eslint-plugin-import:
-    specifier: ^2.29.1
-    version: 2.29.1(@typescript-eslint/parser@7.3.1)(eslint@8.57.0)
-  execa:
-    specifier: ^8.0.1
-    version: 8.0.1
-  graceful-fs:
-    specifier: ^4.2.11
-    version: 4.2.11
-  minimist:
-    specifier: ^1.2.8
-    version: 1.2.8
-  picocolors:
-    specifier: ^1.0.0
-    version: 1.0.0
-  prettier:
-    specifier: ^3.0.0
-    version: 3.2.5
-  vitest:
-    specifier: ^1.4.0
-    version: 1.4.0(@types/node@20.11.30)
+  .:
+    dependencies:
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+      typescript:
+        specifier: ^5.3.3
+        version: 5.4.3
+    devDependencies:
+      '@codspeed/vitest-plugin':
+        specifier: ^3.1.0
+        version: 3.1.0(vite@5.2.4)(vitest@1.4.0)
+      '@types/node':
+        specifier: ^20.11.28
+        version: 20.11.30
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.3.1
+        version: 7.3.1(@typescript-eslint/parser@7.3.1)(eslint@8.57.0)(typescript@5.4.3)
+      '@typescript-eslint/parser':
+        specifier: ^7.3.1
+        version: 7.3.1(eslint@8.57.0)(typescript@5.4.3)
+      '@vitest/coverage-istanbul':
+        specifier: ^1.4.0
+        version: 1.4.0(vitest@1.4.0)
+      boxen:
+        specifier: ^7.1.1
+        version: 7.1.1
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-define-config:
+        specifier: ^2.1.0
+        version: 2.1.0
+      eslint-plugin-import:
+        specifier: ^2.29.1
+        version: 2.29.1(@typescript-eslint/parser@7.3.1)(eslint@8.57.0)
+      execa:
+        specifier: ^8.0.1
+        version: 8.0.1
+      graceful-fs:
+        specifier: ^4.2.11
+        version: 4.2.11
+      minimist:
+        specifier: ^1.2.8
+        version: 1.2.8
+      picocolors:
+        specifier: ^1.0.0
+        version: 1.0.0
+      prettier:
+        specifier: ^3.0.0
+        version: 3.2.5
+      vitest:
+        specifier: ^1.4.0
+        version: 1.4.0(@types/node@20.11.30)
+
+  packages/core:
+    dependencies:
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+
+  packages/data-provider:
+    dependencies:
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+
+  packages/middleware:
+    dependencies:
+      '@provida/data-provider':
+        specifier: workspace:^
+        version: link:../data-provider
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
 
 packages:
 
