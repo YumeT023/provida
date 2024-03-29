@@ -90,7 +90,7 @@ export const queries = [
   "deleteMany",
 ] as const;
 
-export type QName = typeof queries[number];
+export type QName = (typeof queries)[number];
 
 /**
  * Creates a new instance of a DataProvider with a specified name and implementation.
