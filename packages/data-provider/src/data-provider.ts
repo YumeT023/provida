@@ -92,6 +92,8 @@ export const queries = [
 
 export type QName = (typeof queries)[number];
 
+export type DataProviderImpl<R extends PrRecord = PrRecord> = Partial<Omit<DataProvider<R>, "getName">>;
+
 /**
  * Creates a new instance of a DataProvider with a specified name and implementation.
  * This factory function allows for the flexible creation of DataProvider instances,
@@ -113,7 +115,7 @@ export type QName = (typeof queries)[number];
  */
 export function createDataProvider<R extends PrRecord = PrRecord>(
   name: string,
-  impl: Partial<Omit<DataProvider<R>, "getName">> = {}
+  impl: DataProviderImpl<R> = {}
 ): DataProvider<R> {
   const providerBase = new DataProviderBase(name);
   const dataProvider = Object.assign({}, impl, {getName: () => name});
