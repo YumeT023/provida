@@ -1,2 +1,0 @@
-/* TODO: middleware */
-export {}

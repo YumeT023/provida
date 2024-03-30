@@ -1,5 +1,5 @@
 {
-  "name": "@provida/middleware",
+  "name": "@provida/adapter",
   "version": "0.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
     "./axios": "./dist/adapter/index.js"
   },
   "keywords": [],
-  "description": "provida - middleware",
+  "description": "provida - adapter",
   "author": "Yume Sai-ko <yumii.saiko@gmail.com>",
   "dependencies": {
     "@provida/core": "workspace:^",
