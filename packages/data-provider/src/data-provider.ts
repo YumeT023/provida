@@ -10,19 +10,19 @@ export interface DataProvider<R extends PrRecord = PrRecord> {
   getName: () => string;
 
   getOne: (id: Id, params?: Params, meta?: Meta) => Promise<R>;
-  getMany: (params?: PaginatedParams, meta?: Meta) => Promise<R>;
+  getMany: (params?: PaginatedParams, meta?: Meta) => Promise<R[]>;
 
   create: (record: R, params?: Params, meta?: Meta) => Promise<R>;
-  createMany: (records: R[], params?: Params, meta?: Meta) => Promise<R>;
+  createMany: (records: R[], params?: Params, meta?: Meta) => Promise<R[] | void>;
 
   update: (id: Id, params?: Params, meta?: Meta) => Promise<R>;
-  updateMany: (records: R[], params?: Params, meta?: Meta) => Promise<R>;
+  updateMany: (records: R[], params?: Params, meta?: Meta) => Promise<R[] | void>;
 
   crupdate: (id: Id, record: R, params?: Params, meta?: Meta) => Promise<R>;
-  crupdateMany: (records: R[], params?: Params, meta?: Meta) => Promise<R>;
+  crupdateMany: (records: R[], params?: Params, meta?: Meta) => Promise<R[] | void>;
 
   deleteOne: (id: Id, params?: Params, meta?: Meta) => Promise<R>;
-  deleteMany: (ids: Id[], params?: Params, meta?: Meta) => Promise<R>;
+  deleteMany: (ids: Id[], params?: Params, meta?: Meta) => Promise<R[] | void>;
 }
 
 class DataProviderBase implements DataProvider {
@@ -92,7 +92,9 @@ export const queries = [
 
 export type QName = (typeof queries)[number];
 
-export type DataProviderImpl<R extends PrRecord = PrRecord> = Partial<Omit<DataProvider<R>, "getName">>;
+export type DataProviderImpl<R extends PrRecord = PrRecord> = Partial<
+  Omit<DataProvider<R>, "getName">
+>;
 
 /**
  * Creates a new instance of a DataProvider with a specified name and implementation.
