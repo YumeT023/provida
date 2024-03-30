@@ -1,10 +1,10 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.1.1
+  node: circleci/node@5.2.0
 
 jobs:
-  check_style:
+  style:
     executor:
       name: node/default
       tag: "18.19.0"
@@ -15,25 +15,32 @@ jobs:
       - run:
           name: Check code style
           command: yarn format
-  build_and_test:
+  test:
     executor:
       name: node/default
       tag: "18.19.0"
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn
 
       - run:
-          name: Build All packages
-          command: yarn build
+          name: Install pnpm package manager
+          command: sudo npm install -g pnpm
+
+      - run:
+          name: Install deps
+          command: pnpm -w install
+
+      - run:
+          name: Build workspace packages
+          # build packages 
+          command: pnpm build core data-provider adapter
 
       - run:
           name: Run tests
-          command: yarn test
+          command: pnpm test
 
 workflows:
   ci:
     jobs:
-      - check_style
-      - build_and_test
+      - style
+      - test

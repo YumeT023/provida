@@ -14,11 +14,11 @@
   "description": "provida - adapter",
   "author": "Yume Sai-ko <yumii.saiko@gmail.com>",
   "dependencies": {
-    "@provida/core": "workspace:^",
-    "@provida/data-provider": "workspace:^",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "axios": "^1.6"
+    "axios": "^1.6",
+    "@provida/core": "workspace:^",
+    "@provida/data-provider": "workspace:^"
   }
 }
