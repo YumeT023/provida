@@ -61,19 +61,7 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0(@types/node@20.11.30)
 
-  packages/core:
-    dependencies:
-      tslib:
-        specifier: ^2.6.2
-        version: 2.6.2
-
-  packages/data-provider:
-    dependencies:
-      tslib:
-        specifier: ^2.6.2
-        version: 2.6.2
-
-  packages/middleware:
+  packages/adapter:
     dependencies:
       '@provida/core':
         specifier: workspace:^
@@ -84,6 +72,18 @@ importers:
       axios:
         specifier: ^1.6
         version: 1.6.8
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+
+  packages/core:
+    dependencies:
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+
+  packages/data-provider:
+    dependencies:
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
