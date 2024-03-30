@@ -32,7 +32,7 @@ jobs:
 
       - run:
           name: Build workspace packages
-          # build packages 
+          # build packages
           command: pnpm build core data-provider adapter
 
       - run:
