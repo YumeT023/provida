@@ -33,6 +33,7 @@
     "execa": "^8.0.1",
     "graceful-fs": "^4.2.11",
     "minimist": "^1.2.8",
+    "msw": "^2.2.13",
     "picocolors": "^1.0.0",
     "prettier": "^3.0.0",
     "vitest": "^1.4.0"
