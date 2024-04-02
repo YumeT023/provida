@@ -10,7 +10,8 @@ export const axios: AxiosQueryAdapter = async (query) => {
     return res.data;
   } catch (err) {
     if (isAxiosError(err)) {
-      throw new HttpError(err.message, err.status ?? 500, err.cause?.message);
+      const body = err.response;
+      throw new HttpError(err.message, (body?.status || err.status)!, body?.data);
     }
     throw err;
   }
