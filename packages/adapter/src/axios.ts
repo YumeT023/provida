@@ -15,7 +15,7 @@ export const axios = async (
 const normalizeAxiosError = (error: any) => {
   if (error && isAxiosError(error)) {
     const {response} = error;
-    console.assert(!response?.status, "%s should always be transmitted.", response?.status);
+    console.assert(response?.status != null, "%s should always be transmitted.", response?.status);
     return new HttpError(
       error.message,
       response?.status || 520 /* Unknown Error */,
