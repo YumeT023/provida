@@ -15,6 +15,7 @@
   "type": "module",
   "scripts": {
     "format": "prettier --write .",
+    "format-check": "prettier --check",
     "build": "node scripts/build.js",
     "test": "vitest",
     "lint": "eslint --cache --ext .js,.ts,.tsx . --ignore-path .gitignore",
