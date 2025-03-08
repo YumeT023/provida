@@ -15,7 +15,7 @@ export const expectedFoos: Foo[] = [
 
 export const expectedBadRequestBody = {
   type: "BadRequest",
-  message: "only dev can access this resources",
+  message: "only devs can access this resources",
 };
 
 export function createInterceptorMatchUrl(tail: string) {

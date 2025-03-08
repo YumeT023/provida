@@ -1,3 +1,4 @@
+import {HttpError} from "@provida/core";
 import {type AxiosResponse, isAxiosError} from "axios";
 import type {InferAxiosResponseData} from "./types";
 
@@ -13,13 +14,13 @@ export const axios = async (
 
 const normalizeAxiosError = (error: any) => {
   if (error && isAxiosError(error)) {
-    const {response, config} = error;
-    return {
-      ...response?.data,
-      status: response?.status,
-      response,
-      config,
-    };
+    const {response} = error;
+    console.assert(!response?.status, "%s should always be transmitted.", response?.status);
+    return new HttpError(
+      error.message,
+      response?.status || 520 /* Unknown Error */,
+      error.response?.data || error.message
+    );
   }
   return error;
 };
