@@ -18,7 +18,7 @@ jobs:
         run: npm install -g prettier
 
       - name: Check style
-        run: npm run format-check
+        run: npm run format-check packages
 
   test:
     timeout-minutes: 15
