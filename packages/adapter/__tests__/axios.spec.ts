@@ -1,28 +1,22 @@
-import {createDataProvider} from "@provida/data-provider";
 import {HttpError} from "@provida/core";
+import {createDataProvider} from "@provida/data-provider";
 import axios from "axios";
-import {describe, beforeAll, afterAll, afterEach, test, expect} from "vitest";
+import {afterAll, afterEach, beforeAll, describe, expect, test} from "vitest";
+import adapter from "../src";
 import {
-  Foo,
+  type Foo,
   createInterceptorMatchUrl,
   createInterceptorServer,
   expectedBadRequestBody,
   expectedFoos,
 } from "./util";
-import adapter from "../src";
 
 const server = createInterceptorServer();
 
 describe("adapter: axios", () => {
   const fooProvider = createDataProvider<Foo>("__tests__", {
-    getMany: () =>
-      adapter.axios(() => {
-        return axios.get(createInterceptorMatchUrl("foos"));
-      }),
-    updateMany: () =>
-      adapter.axios(() => {
-        return axios.put(createInterceptorMatchUrl("foos"), {});
-      }),
+    getMany: () => adapter.axios(axios.get(createInterceptorMatchUrl("foos"))),
+    updateMany: () => adapter.axios(axios.put(createInterceptorMatchUrl("foos"), {})),
   });
 
   beforeAll(() => {
@@ -42,7 +36,7 @@ describe("adapter: axios", () => {
     expect(data).to.deep.eq(expectedFoos);
   });
 
-  test("transforms AxiosError to provida/core::HttpError on exception", async () => {
+  test("transforms AxiosError to provida::core::HttpError on exception", async () => {
     const expectedErr = new HttpError(
       "Request failed with status code 403",
       403,

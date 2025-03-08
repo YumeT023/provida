@@ -1,28 +1,43 @@
-import {PrRecord, Id} from "./record";
-import {Meta, PaginatedParams, Params} from "./variables";
+import type {Record} from "./record";
+import type {Meta, PaginatedParams, Params} from "./variables";
 
 /**
  * TODO:
  * - DataProvider that manipulates ressource endpoints
  * - Params<T> with pagination, it has many variant so define it elsewhere
  */
-export interface DataProvider<R extends PrRecord = PrRecord> {
+export interface DataProvider<RecordType extends Record = Record> {
   getName: () => string;
 
-  getOne: (id: Id, params?: Params, meta?: Meta) => Promise<R>;
-  getMany: (params?: PaginatedParams, meta?: Meta) => Promise<R[]>;
+  getOne: (id: RecordType["id"], params?: Params, meta?: Meta) => Promise<RecordType>;
+  getMany: (params?: PaginatedParams, meta?: Meta) => Promise<RecordType[]>;
 
-  create: (record: R, params?: Params, meta?: Meta) => Promise<R>;
-  createMany: (records: R[], params?: Params, meta?: Meta) => Promise<R[] | void>;
+  create: (record: RecordType, params?: Params, meta?: Meta) => Promise<RecordType>;
+  createMany: (records: RecordType[], params?: Params, meta?: Meta) => Promise<RecordType[] | void>;
 
-  update: (id: Id, params?: Params, meta?: Meta) => Promise<R>;
-  updateMany: (records: R[], params?: Params, meta?: Meta) => Promise<R[] | void>;
+  update: (id: RecordType["id"], params?: Params, meta?: Meta) => Promise<RecordType>;
+  updateMany: (records: RecordType[], params?: Params, meta?: Meta) => Promise<RecordType[] | void>;
 
-  crupdate: (id: Id, record: R, params?: Params, meta?: Meta) => Promise<R>;
-  crupdateMany: (records: R[], params?: Params, meta?: Meta) => Promise<R[] | void>;
+  crupdate: (
+    id: RecordType["id"],
+    record: RecordType,
+    params?: Params,
+    meta?: Meta
+  ) => Promise<RecordType>;
 
-  deleteOne: (id: Id, params?: Params, meta?: Meta) => Promise<R>;
-  deleteMany: (ids: Id[], params?: Params, meta?: Meta) => Promise<R[] | void>;
+  crupdateMany: (
+    records: RecordType[],
+    params?: Params,
+    meta?: Meta
+  ) => Promise<RecordType[] | void>;
+
+  deleteOne: (id: RecordType["id"], params?: Params, meta?: Meta) => Promise<RecordType>;
+
+  deleteMany: (
+    ids: RecordType["id"][],
+    params?: Params,
+    meta?: Meta
+  ) => Promise<RecordType[] | void>;
 }
 
 class DataProviderBase implements DataProvider {
@@ -90,12 +105,6 @@ export const queries = [
   "deleteMany",
 ] as const;
 
-export type QName = (typeof queries)[number];
-
-export type DataProviderImpl<R extends PrRecord = PrRecord> = Partial<
-  Omit<DataProvider<R>, "getName">
->;
-
 /**
  * Creates a new instance of a DataProvider with a specified name and implementation.
  * This factory function allows for the flexible creation of DataProvider instances,
@@ -112,13 +121,13 @@ export type DataProviderImpl<R extends PrRecord = PrRecord> = Partial<
  * });
  *
  * @param name - The name of the data provider instance.
- * @param impl - A partial implementation of the DataProvider interface
+ * @param impl - A partial/full implementation of the DataProvider interface
  * @returns A new instance of DataProvider
  */
-export function createDataProvider<R extends PrRecord = PrRecord>(
+export function createDataProvider<RecordType extends Record = Record>(
   name: string,
-  impl: DataProviderImpl<R> = {}
-): DataProvider<R> {
+  impl: Partial<Omit<DataProvider<RecordType>, "getName">> = {}
+): DataProvider<RecordType> {
   const providerBase = new DataProviderBase(name);
   const dataProvider = Object.assign({}, impl, {getName: () => name});
   return Object.setPrototypeOf(dataProvider, providerBase);

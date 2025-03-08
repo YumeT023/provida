@@ -6,7 +6,7 @@ export class HttpError extends Error {
   constructor(
     public readonly message: string,
     public readonly status: number,
-    public readonly body: string | null = null
+    public readonly body: string | object | null = null
   ) {
     super(message);
     Object.setPrototypeOf(this, HttpError.prototype);

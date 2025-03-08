@@ -1,4 +1,4 @@
-import {DataProvider, queries} from "../src";
+import type {DataProvider, queries} from "../src";
 
 /**
  * /!\ ONLY used for testing purpose

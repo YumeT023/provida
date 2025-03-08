@@ -1,8 +1,8 @@
-import {PrRecord} from "@provida/data-provider";
-import {http, HttpResponse} from "msw";
+import type {Record} from "@provida/data-provider";
+import {HttpResponse, http} from "msw";
 import {setupServer} from "msw/node";
 
-export interface Foo extends PrRecord {
+export interface Foo extends Record<number> {
   name: string;
 }
 

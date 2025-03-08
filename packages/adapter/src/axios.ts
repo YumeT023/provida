@@ -1,18 +1,25 @@
-import {HttpError} from "@provida/core";
-import {AxiosResponse, isAxiosError} from "axios";
-import {QueryAdapter} from "./types";
+import {type AxiosResponse, isAxiosError} from "axios";
+import type {InferAxiosResponseData} from "./types";
 
-export type AxiosQueryAdapter = QueryAdapter<AxiosResponse>;
-
-export const axios: AxiosQueryAdapter = async (query) => {
+export const axios = async (
+  promise: Promise<AxiosResponse<any>>
+): Promise<InferAxiosResponseData<Awaited<typeof promise>>> => {
   try {
-    const res = await query();
-    return res.data;
-  } catch (err) {
-    if (isAxiosError(err)) {
-      const body = err.response;
-      throw new HttpError(err.message, (body?.status || err.status)!, body?.data);
-    }
-    throw err;
+    return (await promise).data;
+  } catch (e: unknown) {
+    throw normalizeAxiosError(e);
   }
+};
+
+const normalizeAxiosError = (error: any) => {
+  if (error && isAxiosError(error)) {
+    const {response, config} = error;
+    return {
+      ...response?.data,
+      status: response?.status,
+      response,
+      config,
+    };
+  }
+  return error;
 };

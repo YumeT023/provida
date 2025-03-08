@@ -1,5 +1,4 @@
-export type AdapterQueryCallback<TBase> = <R extends TBase>() => Promise<R>;
+import type {AxiosResponse} from "axios";
 
-export type QueryAdapter<TQueryFnReturn> = <TAdapterReturn>(
-  q: AdapterQueryCallback<TQueryFnReturn>
-) => Promise<TAdapterReturn>;
+export type InferAxiosResponseData<Res extends AxiosResponse<any>> =
+  Res extends AxiosResponse<infer TData> ? TData : never;
