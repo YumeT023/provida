@@ -7,7 +7,7 @@ import type {Meta, PaginatedParams, Params} from "./variables";
  * - Params<T> with pagination, it has many variant so define it elsewhere
  */
 export interface DataProvider<RecordType extends Record = Record> {
-  getName: () => string;
+  readonly resource: string;
 
   getOne: (id: RecordType["id"], params?: Params, meta?: Meta) => Promise<RecordType>;
   getMany: (params?: PaginatedParams, meta?: Meta) => Promise<RecordType[]>;
@@ -41,7 +41,7 @@ export interface DataProvider<RecordType extends Record = Record> {
 }
 
 class DataProviderBase implements DataProvider {
-  constructor(private readonly name: string) {}
+  constructor(readonly resource: string) {}
 
   getOne() {
     return this.unimplemented("getOne");
@@ -84,7 +84,7 @@ class DataProviderBase implements DataProvider {
   }
 
   getName() {
-    return this.name;
+    return this.resource;
   }
 
   private unimplemented(method: string): never {
@@ -106,7 +106,7 @@ export const queries = [
 ] as const;
 
 /**
- * Creates a new instance of a DataProvider with a specified name and implementation.
+ * Creates a new instance of a DataProvider with a specified resource and implementation.
  * This factory function allows for the flexible creation of DataProvider instances,
  * enabling the composition of different functionalities and behaviors.
  *
@@ -120,15 +120,14 @@ export const queries = [
  *   // other methods...
  * });
  *
- * @param name - The name of the data provider instance.
+ * @param resource - The resource of the data provider instance.
  * @param impl - A partial/full implementation of the DataProvider interface
  * @returns A new instance of DataProvider
  */
 export function createDataProvider<RecordType extends Record = Record>(
-  name: string,
+  resource: string,
   impl: Partial<Omit<DataProvider<RecordType>, "getName">> = {}
 ): DataProvider<RecordType> {
-  const providerBase = new DataProviderBase(name);
-  const dataProvider = Object.assign({}, impl, {getName: () => name});
-  return Object.setPrototypeOf(dataProvider, providerBase);
+  const providerBase = new DataProviderBase(resource);
+  return Object.setPrototypeOf(impl, providerBase);
 }
